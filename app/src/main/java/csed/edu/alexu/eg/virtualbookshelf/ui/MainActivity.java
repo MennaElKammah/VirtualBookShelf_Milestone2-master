@@ -77,16 +77,16 @@ public class MainActivity extends AppCompatActivity
         spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinner_adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                              @Override
-                                              public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                                  filterOption = i;
-                                              }
+                          @Override
+                          public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                              filterOption = i;
+                          }
 
-                                              @Override
-                                              public void onNothingSelected(AdapterView<?> adapterView) {
-                                                  filterOption = 0;
-                                              }
-                                          }
+                          @Override
+                          public void onNothingSelected(AdapterView<?> adapterView) {
+                              filterOption = 0;
+                          }
+                      }
         );
 
         // books filtering button

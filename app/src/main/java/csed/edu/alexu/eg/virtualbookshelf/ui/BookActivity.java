@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +32,7 @@ import csed.edu.alexu.eg.virtualbookshelf.utility.EditFactory;
 import csed.edu.alexu.eg.virtualbookshelf.utility.FilterData;
 
 public class BookActivity extends AppCompatActivity {
-    private static final String SEPARATOR = " , ";
+    private static final String SEPARATOR = "\n";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,19 +72,23 @@ public class BookActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Volume volume) {
+
+            Button submitRateBtn = findViewById(R.id.submit_rate_btn);
             super.onPostExecute(volume);
             if (volume != null) {
                 // ui items
                 ImageView bookImage = findViewById(R.id.ind_book_image);
                 TextView bookTitleTxt = findViewById(R.id.ind_book_title);
                 TextView authorsTxt = findViewById(R.id.ind_book_authors);
+                TextView descriptionTxt = findViewById(R.id.ind_book_description);
 
                 // image
                 Volume.VolumeInfo.ImageLinks imageLinks = volume.getVolumeInfo().getImageLinks();
                 if (imageLinks != null) {
-                    Log.d("VIEW-BOOK"," Book image link : " + imageLinks.getMedium() );
+
+                    Log.d("VIEW-BOOK"," Book image link : " + imageLinks.getThumbnail());
                     //Picasso.with(BookActivity.this).load(imageLinks.getMedium()).resize(500,500).into(bookImage);
-                    Picasso.with(BookActivity.this).load(imageLinks.getMedium()).into(bookImage);
+                    Picasso.with(BookActivity.this).load(imageLinks.getThumbnail()).resize(500,500).into(bookImage);
                 }
 
                 // title
@@ -105,9 +111,22 @@ public class BookActivity extends AppCompatActivity {
                     Log.d("VIEW-BOOK", " ALL authors : "+ authorsStr );
                     authorsTxt.setText(authorsStr);
                 }
+                descriptionTxt.setText(volume.getVolumeInfo().getDescription());
+                submitRateBtn.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
+                        RatingBar ratingBar = findViewById(R.id.rating_bar);
+                        Toast.makeText(getApplicationContext(),
+                                String.valueOf(ratingBar.getRating()),
+                                Toast.LENGTH_SHORT).show();
+
+                    }
+
+                });
             }
         }
-
     }
 
 }
