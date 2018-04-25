@@ -80,6 +80,7 @@ public class BookActivity extends AppCompatActivity {
                 ImageView bookImage = findViewById(R.id.ind_book_image);
                 TextView bookTitleTxt = findViewById(R.id.ind_book_title);
                 TextView authorsTxt = findViewById(R.id.ind_book_authors);
+                TextView pageCountTxt = findViewById(R.id.ind_book_page_count);
                 TextView descriptionTxt = findViewById(R.id.ind_book_description);
 
                 // image
@@ -111,6 +112,10 @@ public class BookActivity extends AppCompatActivity {
                     Log.d("VIEW-BOOK", " ALL authors : "+ authorsStr );
                     authorsTxt.setText(authorsStr);
                 }
+                StringBuilder pageCountStr = new StringBuilder();
+                pageCountStr.append(volume.getVolumeInfo().getPageCount());
+                pageCountStr.append(" pages");
+                pageCountTxt.setText(pageCountStr);
                 descriptionTxt.setText(volume.getVolumeInfo().getDescription());
                 submitRateBtn.setOnClickListener(new View.OnClickListener() {
 
