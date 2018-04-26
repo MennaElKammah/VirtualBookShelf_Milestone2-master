@@ -71,9 +71,13 @@ public class BookActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Volume volume) {
+        protected void onPostExecute(final Volume volume) {
 
             Button submitRateBtn = findViewById(R.id.submit_rate_btn);
+            Button addToFavBtn = findViewById(R.id.add_to_fav_btn);
+            Button addToWishlistBtn = findViewById(R.id.add_to_wishlist_btn);
+            Button addToReadBtn = findViewById(R.id.add_to_read_btn);
+
             super.onPostExecute(volume);
             if (volume != null) {
                 // ui items
@@ -130,6 +134,27 @@ public class BookActivity extends AppCompatActivity {
                     }
 
                 });
+                addToFavBtn.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        Log.d("BOOK-FAV", volume.getId());
+                    }
+                });
+                addToWishlistBtn.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                    }
+                });
+                addToReadBtn.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+
             }
         }
     }

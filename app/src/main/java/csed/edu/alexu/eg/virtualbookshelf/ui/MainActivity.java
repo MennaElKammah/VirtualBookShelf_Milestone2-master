@@ -183,6 +183,8 @@ public class MainActivity extends AppCompatActivity
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int id) {
                                                         // call add volume to shelf
+//                                                        String shelf_id = getResources().getString(R.string.shelf_id_txt);
+//                                                        Log.d("shelf id");
                                                     }
                                                 })
                                                 .setNegativeButton(R.string.cancel_book, new DialogInterface.OnClickListener() {

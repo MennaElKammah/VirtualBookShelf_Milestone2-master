@@ -26,6 +26,9 @@
     <string name="books_id_hint">Enter books ID</string>
     <string name="delete_book">Delete</string>
     <string name="clear_Shelf">Clear</string>
+    <string name="shelf_id_txt" />
+    <string name="vol_id_txt" />
+    <string name="books_id_txt" />
 
 
 </resources>
