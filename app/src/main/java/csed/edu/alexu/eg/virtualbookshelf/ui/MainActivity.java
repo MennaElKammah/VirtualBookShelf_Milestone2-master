@@ -1,6 +1,7 @@
 package csed.edu.alexu.eg.virtualbookshelf.ui;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,6 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.text.Layout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -149,6 +151,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        final Context context = this;
+
+        // Get the layout inflater
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         int id = item.getItemId();
 
         if (id == R.id.profile) {
@@ -156,13 +162,79 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.edit_shelf) {
 //            Intent intent = new Intent(this, LoginActivity.class);
 //            startActivity(intent);
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle(R.string.edit_shelf)
                         .setItems(R.array.edit_shelf_array, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+
+                                // Get the layout inflater
+                                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                 switch(which){
                                     case 0:
-                                        
+                                        builder.setTitle("Add a volume to a shelf");
+
+                                        // Inflate and set the layout for the dialog
+                                        // Pass null as the parent view because its going in the dialog layout
+                                        builder.setView(inflater.inflate(R.layout.add_or_delete_book_layout, null))
+                                                // Add action buttons
+                                                .setPositiveButton(R.string.add_book, new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        // call add volume to shelf
+                                                    }
+                                                })
+                                                .setNegativeButton(R.string.cancel_book, new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        dialog.cancel();
+                                                    }
+                                                });
+                                        builder.create();
+                                        builder.show();
+                                        break;
+
+                                    case 1:
+                                        builder.setTitle("Delete a volume from a shelf");
+                                        // Inflate and set the layout for the dialog
+                                        // Pass null as the parent view because its going in the dialog layout
+                                        builder.setView(inflater.inflate(R.layout.add_or_delete_book_layout, null))
+                                                // Add action buttons
+                                                .setPositiveButton(R.string.clear_Shelf, new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        // call delete volume from shelf
+                                                    }
+                                                })
+                                                .setNegativeButton(R.string.cancel_book, new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        dialog.cancel();
+                                                    }
+                                                });
+                                        builder.create();
+                                        builder.show();
+                                        break;
+
+                                    case 2:
+                                        builder.setTitle("Clear a shelf");
+                                        // Inflate and set the layout for the dialog
+                                        // Pass null as the parent view because its going in the dialog layout
+                                        builder.setView(inflater.inflate(R.layout.clear_shelf_layout, null))
+                                                // Add action buttons
+                                                .setPositiveButton(R.string.delete_book, new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        // call clear shelf
+                                                    }
+                                                })
+                                                .setNegativeButton(R.string.cancel_book, new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        dialog.cancel();
+                                                    }
+                                                });
+                                        builder.create();
+                                        builder.show();
+                                        break;
                                 }
 
                             }
