@@ -10,7 +10,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.text.Layout;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -163,26 +162,7 @@ public class MainActivity extends AppCompatActivity
                             public void onClick(DialogInterface dialog, int which) {
                                 switch(which){
                                     case 0:
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                                        // Get the layout inflater
-                                        LayoutInflater inflater = getActivity().getLayoutInflater();
-
-                                        // Inflate and set the layout for the dialog
-                                        // Pass null as the parent view because its going in the dialog layout
-                                        builder.setView(inflater.inflate(R.layout.dialog_signin, null))
-                                                // Add action buttons
-                                                .setPositiveButton(R.string.signin, new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int id) {
-                                                        // sign in the user ...
-                                                    }
-                                                })
-                                                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int id) {
-                                                        LoginDialogFragment.this.getDialog().cancel();
-                                                    }
-                                                });
-                                        return builder.create();
+                                        
                                 }
 
                             }
