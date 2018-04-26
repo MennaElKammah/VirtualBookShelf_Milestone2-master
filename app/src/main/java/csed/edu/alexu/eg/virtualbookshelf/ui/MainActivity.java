@@ -1,12 +1,16 @@
 package csed.edu.alexu.eg.virtualbookshelf.ui;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.text.Layout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -149,7 +153,42 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.profile) {
-            // Handle the camera action
+
+        } else if (id == R.id.edit_shelf) {
+//            Intent intent = new Intent(this, LoginActivity.class);
+//            startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.edit_shelf)
+                        .setItems(R.array.edit_shelf_array, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch(which){
+                                    case 0:
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                        // Get the layout inflater
+                                        LayoutInflater inflater = getActivity().getLayoutInflater();
+
+                                        // Inflate and set the layout for the dialog
+                                        // Pass null as the parent view because its going in the dialog layout
+                                        builder.setView(inflater.inflate(R.layout.dialog_signin, null))
+                                                // Add action buttons
+                                                .setPositiveButton(R.string.signin, new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        // sign in the user ...
+                                                    }
+                                                })
+                                                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        LoginDialogFragment.this.getDialog().cancel();
+                                                    }
+                                                });
+                                        return builder.create();
+                                }
+
+                            }
+                        });
+                builder.create();
+                builder.show();
         } else if (id == R.id.favourite_list) {
 
         } else if (id == R.id.to_be_read_list) {

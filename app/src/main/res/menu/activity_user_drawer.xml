@@ -9,6 +9,10 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/profile" />
         <item
+            android:id="@+id/edit_shelf"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/edit_shelf" />
+        <item
             android:id="@+id/books_view"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/books" />
