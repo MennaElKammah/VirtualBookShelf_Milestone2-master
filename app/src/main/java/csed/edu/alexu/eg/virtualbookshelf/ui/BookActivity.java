@@ -18,21 +18,40 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.books.Books;
 import com.google.api.services.books.BooksRequestInitializer;
+import com.google.api.services.books.model.Bookshelf;
 import com.google.api.services.books.model.Volume;
 import com.google.api.services.books.model.Volumes;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import csed.edu.alexu.eg.virtualbookshelf.R;
 import csed.edu.alexu.eg.virtualbookshelf.utility.BookListAdapter;
 import csed.edu.alexu.eg.virtualbookshelf.utility.EditFactory;
 import csed.edu.alexu.eg.virtualbookshelf.utility.FilterData;
+import csed.edu.alexu.eg.virtualbookshelf.utility.UserUtils;
 
 public class BookActivity extends AppCompatActivity {
     private static final String SEPARATOR = "\n";
+    HashMap<String, String> shelfID;
+    public BookActivity(){
+        /*
+    BookShelf ShelfID: 1 Name: Purchased
+    BookShelf ShelfID: 5 Name: Reviewed
+    BookShelf ShelfID: 6 Name: Recently viewed
+    BookShelf ShelfID: 9 Name: Browsing history
+    BookShelf ShelfID: 0 Name: Favorites
+    BookShelf ShelfID: 3 Name: Reading now
+    BookShelf ShelfID: 2 Name: To read*/
+        shelfID = new HashMap<>();
+        shelfID.put("Favorites", "0");
+        shelfID.put("Reading now", "3");
+        shelfID.put("To read", "2");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +90,13 @@ public class BookActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Volume volume) {
+        protected void onPostExecute(final Volume volume) {
 
             Button submitRateBtn = findViewById(R.id.submit_rate_btn);
+            Button addToFavBtn = findViewById(R.id.add_to_fav_btn);
+            Button addToWishlistBtn = findViewById(R.id.add_to_wishlist_btn);
+            Button addToReadBtn = findViewById(R.id.add_to_read_btn);
+
             super.onPostExecute(volume);
             if (volume != null) {
                 // ui items
@@ -130,7 +153,28 @@ public class BookActivity extends AppCompatActivity {
                     }
 
                 });
+                addToFavBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {addToShelf(volume.getId() , "Favorites");}
+                });
+                addToWishlistBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {addToShelf(volume.getId(), "Reading now");}
+                });
+                addToReadBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {addToShelf(volume.getId(), "To read");}
+                });
+
             }
+        }
+
+
+        public void addToShelf(String ID, String shelfName){
+            Log.d("BOOK-FAV", ID);
+            UserUtils user = EditFactory.getInstance().getEditFun("AddVolumeToShelf");
+            Log.d("Soso", "shelfId: " + ID);
+            user.execute(new String[]{shelfID.get(shelfName), ID});
         }
     }
 

@@ -28,16 +28,20 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.google.api.services.books.Books;
 import com.google.api.services.books.model.Volume;
 import com.google.api.services.books.model.Volumes;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import csed.edu.alexu.eg.virtualbookshelf.R;
 import csed.edu.alexu.eg.virtualbookshelf.utility.BookListAdapter;
 import csed.edu.alexu.eg.virtualbookshelf.utility.Constants;
 import csed.edu.alexu.eg.virtualbookshelf.utility.EditFactory;
 import csed.edu.alexu.eg.virtualbookshelf.utility.FilterData;
+import csed.edu.alexu.eg.virtualbookshelf.utility.UserUtils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -183,6 +187,7 @@ public class MainActivity extends AppCompatActivity
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int id) {
                                                         // call add volume to shelf
+
                                                     }
                                                 })
                                                 .setNegativeButton(R.string.cancel_book, new DialogInterface.OnClickListener() {
@@ -203,7 +208,11 @@ public class MainActivity extends AppCompatActivity
                                                 .setPositiveButton(R.string.clear_Shelf, new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int id) {
-                                                        // call delete volume from shelf
+                                                        UserUtils user = EditFactory.getInstance().getEditFun("RemoveVolumeFromShelf");
+                                                        String shelf_id = getResources().getString(R.string.shelf_ID);
+                                                        String vol_id = getResources().getString(R.string.vol_ID);
+                                                        Log.d("Soso", "shelfId: " + shelf_id + " " + vol_id);
+                                                        user.execute(new String[]{shelf_id, vol_id});
                                                     }
                                                 })
                                                 .setNegativeButton(R.string.cancel_book, new DialogInterface.OnClickListener() {
@@ -243,6 +252,27 @@ public class MainActivity extends AppCompatActivity
                 builder.show();
         } else if (id == R.id.favourite_list) {
 
+             UserUtils user = EditFactory.getInstance().getEditFun("ShowVolumesInBookshelf");
+             Log.d("Soso" , "From favorite in UI");
+
+             AsyncTask<String, Void, Books.Mylibrary.Bookshelves.Volumes>
+                     volumes = user.execute(new String[]{"0"});
+             
+           /* adapter = new BookListAdapter(MainActivity.this, R.layout.books_list_item, (ArrayList<Volume>) volumes);
+                        booksListView.setAdapter(adapter);
+
+                        booksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                Log.d(this.getClass().getName(), "open indivual book number " + i + " in list");
+                                Intent intent = new Intent(MainActivity.this, BookActivity.class);
+                                Volume volume = (Volume) booksListView.getAdapter().getItem(i);
+                                intent.putExtra("book_id", volume.getId());
+                                startActivity(intent);
+                            }
+                        });
+
+               */
         } else if (id == R.id.to_be_read_list) {
 
         } else if (id == R.id.read_list) {

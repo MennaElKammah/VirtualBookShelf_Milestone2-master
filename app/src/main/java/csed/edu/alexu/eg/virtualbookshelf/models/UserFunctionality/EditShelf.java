@@ -3,10 +3,8 @@ package csed.edu.alexu.eg.virtualbookshelf.models.UserFunctionality;
 import android.util.Log;
 
 import com.google.api.services.books.Books;
-import com.google.api.services.books.model.Bookshelf;
 
 import java.io.IOException;
-import java.util.List;
 
 public class EditShelf {
     private final String TAG = EditShelf.class.getSimpleName();
@@ -18,7 +16,7 @@ public class EditShelf {
         Books.Mylibrary.Bookshelves.AddVolume bookShelve = null;
         try {
             //params[0]: ShelfID, params[1]: volumeID
-            Log.d(TAG, "Before adding to bookshelf");
+            Log.d(TAG, "Before adding to bookshelf" + " shelfID: " + shelfID + " bookId: " + volumeID);
             bookShelve = books.mylibrary().bookshelves().addVolume(shelfID, volumeID);
             bookShelve.execute();
             Log.d(TAG, "After adding to bookshelf");
@@ -27,7 +25,20 @@ public class EditShelf {
             throw new RuntimeException("Failed to add book to shelf");
         }
     }
+    public Books.Mylibrary.Bookshelves.Volumes ShowVolumesInBookshelf(Books  books, String ID) {
 
+        Books.Mylibrary.Bookshelves.Volumes bookVolumes = null;
+        try {
+            Log.d(TAG, "Before showing bookshelf");
+            bookVolumes = books.mylibrary().bookshelves().volumes();
+            //bookVolumes.execute();
+            Log.d(TAG, "After showing bookshelf");
+        } catch (Exception e) {
+            Log.e(TAG, "Error in show bookShelf");
+            throw new RuntimeException("Failed to show from BookShelf");
+        }
+        return bookVolumes;
+    }
     public void clearShelf (String shelfID, Books books){
         if (shelfID == null)
             throw new RuntimeException("Invalid args");

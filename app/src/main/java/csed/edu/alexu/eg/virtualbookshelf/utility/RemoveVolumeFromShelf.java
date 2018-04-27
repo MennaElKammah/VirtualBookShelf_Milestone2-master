@@ -3,10 +3,9 @@ package csed.edu.alexu.eg.virtualbookshelf.utility;
 import android.util.Log;
 
 import com.google.api.services.books.Books;
-import com.google.api.services.books.model.Volumes;
 import csed.edu.alexu.eg.virtualbookshelf.models.UserFunctionality.EditShelf;
 import csed.edu.alexu.eg.virtualbookshelf.utility.UserUtils;
-
+import com.google.api.services.books.Books.Mylibrary.Bookshelves.Volumes;
 public class RemoveVolumeFromShelf extends UserUtils {
     private final String TAG = RemoveVolumeFromShelf.class.getSimpleName();
 

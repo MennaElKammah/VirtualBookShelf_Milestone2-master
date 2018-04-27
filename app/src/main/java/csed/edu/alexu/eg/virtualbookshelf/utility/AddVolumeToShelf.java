@@ -3,8 +3,7 @@ package csed.edu.alexu.eg.virtualbookshelf.utility;
 import android.util.Log;
 
 import com.google.api.services.books.Books;
-import com.google.api.services.books.model.Volumes;
-
+import com.google.api.services.books.Books.Mylibrary.Bookshelves.Volumes;
 import csed.edu.alexu.eg.virtualbookshelf.models.UserFunctionality.EditShelf;
 
 public class AddVolumeToShelf extends UserUtils {
