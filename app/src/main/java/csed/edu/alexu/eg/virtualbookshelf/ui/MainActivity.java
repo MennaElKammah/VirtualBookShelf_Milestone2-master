@@ -258,7 +258,7 @@ public class MainActivity extends AppCompatActivity
              AsyncTask<String, Void, Books.Mylibrary.Bookshelves.Volumes>
                      volumes = user.execute(new String[]{"0"});
              
-           /* adapter = new BookListAdapter(MainActivity.this, R.layout.books_list_item, (ArrayList<Volume>) volumes);
+           /** adapter = new BookListAdapter(MainActivity.this, R.layout.books_list_item, (ArrayList<Volume>) volumes);
                         booksListView.setAdapter(adapter);
 
                         booksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
